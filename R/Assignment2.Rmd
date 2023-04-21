@@ -1,6 +1,6 @@
 ---
 title: "Assignment2"
-author: "Alejandro Pachón"
+author: "Alejandro Pachón, Alexander Morgan, Santiago Meza"
 date: "2023-04-21"
 output: pdf_document
 ---
@@ -9,15 +9,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Sensor ultrasonido 
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Este es un sensor de distancia, usado para determinar en un rango que por datasheet esta determinado entre 2 a 450 cm, sin embargo, en este caso vamos a usar el rango entre 20 y 80 cm. Comparado con el otro sensor utilizado, este dispositivo cuenta con un rango de valores mas amplio que el sensor infrarrojo.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+## Sensor infrarrojo
 
-```{r cars}
-summary(cars)
-```
+Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posicion y un procesador integrado encargado de realizar el calculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica. 
 
 ## Including Plots
 
