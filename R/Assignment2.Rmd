@@ -9,13 +9,13 @@ output: pdf_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Sensor ultrasonido 
+## Sensor ultrasonido
 
 Este es un sensor de distancia, usado para determinar en un rango que por datasheet esta determinado entre 2 a 450 cm, sin embargo, en este caso vamos a usar el rango entre 20 y 80 cm. Comparado con el otro sensor utilizado, este dispositivo cuenta con un rango de valores mas amplio que el sensor infrarrojo.
 
 ## Sensor infrarrojo
 
-Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posicion y un procesador integrado encargado de realizar el calculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica. 
+Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posición y un procesador integrado encargado de realizar el cálculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica.
 
 ## Including Plots
 
