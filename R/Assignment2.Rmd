@@ -17,6 +17,16 @@ Este es un sensor de distancia, usado para determinar en un rango que por datash
 
 Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posición y un procesador integrado encargado de realizar el cálculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica.
 
+## Cargar los datos
+
+```{r}
+DataSetSensores <- read.csv("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.csv")
+tabla <- kable(DataSetSensores,"html",row.names = FALSE) 
+tabla <- kable_classic(tabla, "striped", full_width=FALSE)
+tabla
+
+```
+
 ## Including Plots
 
 You can also embed plots, for example:
