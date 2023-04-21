@@ -27,6 +27,12 @@ tabla
 
 ```
 
+## Cargar datos
+```{r}
+library(readxl)
+datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.xlsx")
+```
+
 ## Including Plots
 
 You can also embed plots, for example:
