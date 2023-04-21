@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Sensor ultrasonido
 
-Este es un sensor de distancia, usado para determinar en un rango que por datasheet esta determinado entre 2 a 450 cm, sin embargo, en este caso vamos a usar el rango entre 20 y 80 cm. Comparado con el otro sensor utilizado, este dispositivo cuenta con un rango de valores mas amplio que el sensor infrarrojo.
+Este es un sensor de distancia, usado para determinar en un rango que por datasheet esta determinado entre 2 a 450 cm, sin embargo, en este caso vamos a usar el rango entre 20 y 80 cm. Comparado con el otro sensor utilizado, este dispositivo cuenta con un rango de valores mas amplio que el sensor infrarrojo..
 
 ## Sensor infrarrojo
 
