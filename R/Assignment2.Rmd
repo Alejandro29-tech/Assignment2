@@ -20,6 +20,17 @@ Este es un dispositivo compuesto por un LED infrarojo junto con un detector de p
 ## Tabla de Excel
 
 ```{r}
+library(readxl)
+library(knitr)
+library(kableExtra)
+
+# Leer el archivo Excel
+datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
+
+# Mostrar la tabla como HTML
+tabla <- kable(datos, format = "html", row.names = FALSE) %>%
+  kable_classic("striped", full_width = FALSE)
+tabla
 
 ```
 
@@ -27,7 +38,7 @@ Este es un dispositivo compuesto por un LED infrarojo junto con un detector de p
 
 ```{r}
 library(readxl)
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.xlsx")
+datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
 
 ```
 
