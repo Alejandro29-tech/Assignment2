@@ -75,18 +75,9 @@ print(prediccion_sensor2)
 ## Tabla de Excel
 
 ```{r}
-  library(knitr)
-library(kableExtra)
-
-# Leer el archivo CSV en un dataframe
-datos <- read.csv("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.csv")
-
-# Seleccionar solo la columna "Sensor 1"
-Sensor1 <- datos$`Sensor 1`
-
-# Mostrar la columna "Sensor 1" como una tabla HTML
-tabla <- kable(Sensor1, format = "html", row.names = FALSE) %>%
-  kable_classic("striped", full_width = FALSE)
+DataSet<- read.csv("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.csv")
+tabla <- kable(DataSetSensores,"html",row.names = FALSE) 
+tabla <- kable_classic(tabla, "striped", full_width=FALSE)
 tabla
 
 ```
