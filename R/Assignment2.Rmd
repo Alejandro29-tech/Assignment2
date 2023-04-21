@@ -17,13 +17,9 @@ Este es un sensor de distancia, usado para determinar en un rango que por datash
 
 Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posición y un procesador integrado encargado de realizar el cálculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica.
 
-## Cargar los datos
+## Tabla de Excel
 
 ```{r}
-DataSetSensores <- read.csv("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.csv")
-tabla <- kable(DataSetSensores,"html",row.names = FALSE) 
-tabla <- kable_classic(tabla, "striped", full_width=FALSE)
-tabla
 
 ```
 
@@ -31,7 +27,7 @@ tabla
 
 ```{r}
 library(readxl)
-datos <- read_excel("nombre_de_tu_archivo.xlsx")
+datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.xlsx")
 
 ```
 
@@ -44,22 +40,24 @@ colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
 ## Entrenar el modelo KNN para el Sensor 1
 
 ```{r}
-library(readxl)
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.xlsx")
+library(caret)
+modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 1
 
 ```{r}
-library(caret)
-modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
+nuevo_valor_sensor1 <- 20 # Por ejemplo
+prediccion_sensor1 <- predict(modelo_sensor1, newdata = data.frame(cm = nuevo_valor_sensor1))
+
+# Imprimir la predicción para el Sensor 1
+print(prediccion_sensor1)
 ```
 
 ## Entrenar el modelo KNN para el Sensor 2
 
 ```{r}
-library(readxl)
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.xlsx")
+modelo_sensor2 <- train(Sensor2_cm ~ cm, data = datos, method = "knn")
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 2
@@ -70,14 +68,5 @@ prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_va
 
 # Imprimir la predicción para el Sensor 2
 print(prediccion_sensor2)
-```
-
-## Tabla de Excel
-
-```{r}
-DataSet<- read.csv("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Area Electrónica/Proyecto adquisición de datos/150.csv")
-tabla <- kable(DataSetSensores,"html",row.names = FALSE) 
-tabla <- kable_classic(tabla, "striped", full_width=FALSE)
-tabla
 
 ```
