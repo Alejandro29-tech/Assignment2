@@ -2,7 +2,6 @@
 title: "Assignment2"
 author: "Alejandro Pachón, Alexander Morgan, Santiago Meza"
 date: "2023-04-21"
-output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
