@@ -2,7 +2,6 @@
 title: "Assignment2"
 author: "Alejandro Pachón, Santiago Meza, Alexander Morgan"
 date: "2023-04-21"
-
 ---
 
 ```{r setup, include=FALSE}
@@ -14,21 +13,21 @@ knitr::opts_chunk$set(echo = TRUE)
 Puedes visitar nuestro repositorio en internet, para más información : [**Nuestro Repositorio**](https://github.com/Alejandro29-tech/Assignment2)
 
 ## 1.1 Data acquisition
-Develop an acquisition system (hardware and software) to capture distance data. The requirements for the system
-are as follows:
+
+Develop an acquisition system (hardware and software) to capture distance data. The requirements for the system are as follows:
 
 ```{r}
-library(readxl)
-library(knitr)
-library(kableExtra)
+#library(readxl)
+#library(knitr)
+#library(kableExtra)
 
 # Leer el archivo Excel
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.xlsx")
+#datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.xlsx")
 
 # Mostrar la tabla como HTML
-tabla <- kable(datos, format = "html", row.names = FALSE) %>%
-  kable_classic("striped", full_width = FALSE)
-tabla
+#tabla <- kable(datos, format = "html", row.names = FALSE) %>%
+ # kable_classic("striped", full_width = FALSE)
+#tabla
 ```
 
 ## Sensor ultrasonido
@@ -41,18 +40,22 @@ Este es un dispositivo compuesto por un LED infrarojo junto con un detector de p
 
 ## 2.1 Data acquisition - Tabla de Excel
 
-```{r}
-library(readxl)
-library(knitr)
-library(kableExtra)
+```{r Item 1, message=FALSE}
+#library(readxl)
+#library(knitr)
+#library(kableExtra)
 
 # Leer el archivo Excel
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
+#datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
 
 # Mostrar la tabla como HTML
-tabla <- kable(datos, format = "html", row.names = FALSE) %>%
-  kable_classic("striped", full_width = FALSE)
-tabla
+#tabla <- kable(datos, format = "html", row.names = FALSE) %>%
+#  kable_classic("striped", full_width = FALSE)
+#tabla
+library(tidyverse)
+library(readxl)
+X150 <- read_excel("R/150.csv")
+View(X150)
 
 ```
 
@@ -60,34 +63,34 @@ tabla
 
 ```{r}
 # Modelo lineal para Sensor1
-model_lin_Sensor_1 <- lm(Sensor_1 ~ Sensor1_cm, data = datos)
+#model_lin_Sensor_1 <- lm(Sensor_1 ~ Sensor1_cm, data = datos)
 
 # Modelo lineal regularizado para Sensor1
-library(glmnet)
-model_reg_Sensor_1 <- glmnet(as.matrix(datos[,c("Sensor1_cm")]), as.matrix(datos[,c("Sensor 1")]), alpha = 1)
+#library(glmnet)
+#model_reg_Sensor_1 <- glmnet(as.matrix(datos[,c("Sensor1_cm")]), as.matrix(datos[,c("Sensor 1")]), alpha = 1)
 
 # Modelo lineal para Sensor2
-model_lin_Sensor2 <- lm(Sensor2 ~ Sensor2_cm, data = datos)
+#model_lin_Sensor2 <- lm(Sensor2 ~ Sensor2_cm, data = datos)
 
 # Modelo lineal regularizado para Sensor2
-model_reg_Sensor2 <- glmnet(as.matrix(datos[,c("Sensor2_cm")]), as.matrix(datos[,c("Sensor 2")]), alpha = 1)
+#model_reg_Sensor2 <- glmnet(as.matrix(datos[,c("Sensor2_cm")]), as.matrix(datos[,c("Sensor 2")]), alpha = 1)
 ```
 
 ##2.1 Cargar datos
 
 ```{r}
-knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
-library(glmnet)
-library(kableExtra)
+#knitr::opts_chunk$set(echo = TRUE)
+#library(tidyverse)
+#library(glmnet)
+#library(kableExtra)
 
-datos <- read.csv("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.csv")
+#datos <- read.csv("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.csv")
 
 # Cambiar nombres de columnas
-colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
+#colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
 
 # Visualizar tabla
-kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic("striped")
+#kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic("striped")
 
 
 ```
@@ -96,46 +99,45 @@ kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic
 
 ```{r}
 
+
 ```
-
-
 
 ## Renombrar las columnas
 
 ```{r}
-colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
+#colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
 ```
 
 ## Entrenar el modelo KNN para el Sensor 1
 
 ```{r}
-library(caret)
-modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
+#library(caret)
+#modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 1
 
 ```{r}
-nuevo_valor_sensor1 <- 20 # Por ejemplo
-prediccion_sensor1 <- predict(modelo_sensor1, newdata = data.frame(cm = nuevo_valor_sensor1))
+#nuevo_valor_sensor1 <- 20 # Por ejemplo
+#prediccion_sensor1 <- predict(modelo_sensor1, newdata = data.frame(cm = nuevo_valor_sensor1))
 
 # Imprimir la predicción para el Sensor 1
-print(prediccion_sensor1)
+#print(prediccion_sensor1)
 ```
 
 ## Entrenar el modelo KNN para el Sensor 2
 
 ```{r}
-modelo_sensor2 <- train(Sensor2_cm ~ cm, data = datos, method = "knn")
+#modelo_sensor2 <- train(Sensor2_cm ~ cm, data = datos, method = "knn")
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 2
 
 ```{r}
-nuevo_valor_sensor2 <- 30 # Por ejemplo
-prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_valor_sensor2))
+#nuevo_valor_sensor2 <- 30 # Por ejemplo
+#prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_valor_sensor2))
 
 # Imprimir la predicción para el Sensor 2
-print(prediccion_sensor2)
+#print(prediccion_sensor2)
 
 ```
