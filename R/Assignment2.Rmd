@@ -63,21 +63,17 @@ datos <- read_excel("C:/Users/ALEX64MER01/Documents/Universidad 8vo Semestre/Are
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 2
- 
+
 ```{r}
 nuevo_valor_sensor2 <- 30 # Por ejemplo
 prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_valor_sensor2))
 
 # Imprimir la predicción para el Sensor 2
 print(prediccion_sensor2)
-``` 
- 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Tabla de Excel
+```{r}
+  library(datos)
+  filter(Sensor1)
+```
