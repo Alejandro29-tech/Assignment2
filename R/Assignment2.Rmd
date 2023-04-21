@@ -1,11 +1,34 @@
 ---
 title: "Assignment2"
-author: "Alejandro Pachón, Alexander Morgan, Santiago Meza"
-date: "2023-04-21"
+author: "Alejandro Pachón, Santiago Meza, Alexander Morgan"
+date: "2023-02-25"
+
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub
+
+Puedes visitar nuestro repositorio en internet, para más información : [**Nuestro Repositorio**](https://github.com/Alejandro29-tech/Assignment2)
+
+## 1.1 Data acquisition
+Develop an acquisition system (hardware and software) to capture distance data. The requirements for the system
+are as follows:
+
+```{r}
+library(readxl)
+library(knitr)
+library(kableExtra)
+
+# Leer el archivo Excel
+datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.xlsx")
+
+# Mostrar la tabla como HTML
+tabla <- kable(datos, format = "html", row.names = FALSE) %>%
+  kable_classic("striped", full_width = FALSE)
+tabla
 ```
 
 ## Sensor ultrasonido
@@ -16,7 +39,7 @@ Este es un sensor de distancia, usado para determinar en un rango que por datash
 
 Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posición y un procesador integrado encargado de realizar el cálculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica.
 
-## Tabla de Excel
+## 2.1 Data acquisition - Tabla de Excel
 
 ```{r}
 library(readxl)
@@ -33,13 +56,49 @@ tabla
 
 ```
 
+## Modelo lineal para Sensor1
+
+```{r}
+# Modelo lineal para Sensor1
+model_lin_Sensor_1 <- lm(Sensor_1 ~ Sensor1_cm, data = datos)
+
+# Modelo lineal regularizado para Sensor1
+library(glmnet)
+model_reg_Sensor_1 <- glmnet(as.matrix(datos[,c("Sensor1_cm")]), as.matrix(datos[,c("Sensor 1")]), alpha = 1)
+
+# Modelo lineal para Sensor2
+model_lin_Sensor2 <- lm(Sensor2 ~ Sensor2_cm, data = datos)
+
+# Modelo lineal regularizado para Sensor2
+model_reg_Sensor2 <- glmnet(as.matrix(datos[,c("Sensor2_cm")]), as.matrix(datos[,c("Sensor 2")]), alpha = 1)
+```
+
+##2.1 Cargar datos
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(glmnet)
+library(kableExtra)
+
+datos <- read.csv("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.csv")
+
+# Cambiar nombres de columnas
+colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
+
+# Visualizar tabla
+kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic("striped")
+
+
+```
+
 ## Cargar datos
 
 ```{r}
-library(readxl)
-datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
 
 ```
+
+
 
 ## Renombrar las columnas
 
