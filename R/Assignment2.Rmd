@@ -2,6 +2,8 @@
 title: "Assignment2"
 author: "Alejandro Pachón, Santiago Meza, Alexander Morgan"
 date: "2023-04-21"
+output:
+  pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -14,130 +16,120 @@ Puedes visitar nuestro repositorio en internet, para más información : [**Nues
 
 ## 1.1 Data acquisition
 
-Develop an acquisition system (hardware and software) to capture distance data. The requirements for the system are as follows:
+## Sensor ultrasonido HC-SR04
 
-```{r}
-#library(readxl)
-#library(knitr)
-#library(kableExtra)
+El sensor de ultrasonido HC-SR04 es un sensor popular utilizado para medir distancias. en caunto asu funcionamiento, El HC-SR04 emite una serie de pulsos de ultrasonido y mide el tiempo que tarda en recibir el eco de estos pulsos. Utiliza esta información para calcular la distancia desde el sensor hasta el objeto.El rango de medición del HC-SR04 es de 2 cm a 4 metros. en cuanto a su precicion es +/- de aproximadamente 3 mm. su angulo de apertura es de 15° respecto al centro del emisor y trabaja bajo una frecuencia de 40KHz, tambien utiliza como interfaaz de comunicacion el sistema de PWM para enviar o recibir señales. para mas infomacion se puede consultar el [**Datasheet**](http://www.datasheetcafe.com/hc-sr04-pdf-22772/)
 
-# Leer el archivo Excel
-#datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.xlsx")
+![](images/hc-01.PNG)){width="280"}
 
-# Mostrar la tabla como HTML
-#tabla <- kable(datos, format = "html", row.names = FALSE) %>%
- # kable_classic("striped", full_width = FALSE)
-#tabla
-```
+## Sensor infrarrojo Sharp 2Y0A21
 
-## Sensor ultrasonido
+El Sharp 2Y0A21 emite un haz de luz infrarroja y mide la cantidad de luz reflejada por un objeto para calcular la distancia mediante un procesador integrado encargado de realizar el cálculo, El rango de medición es de 10 cm a 80 cm. su precision es de +/- aproximadamente 1 cm. funciona con una frecuancia de 38KHz y su angulo de deteccion es de 25°, en el aspecto de comunicacion no cuenta con una propia simplemente devuelve una tensión analógica proporcional a la distancia medida. para mas infomacion se puede consultar el [**Datasheet**](https://global.sharp/products/device/lineup/data/pdf/datasheet/gp2y0a21yk_e.pdf)
 
-Este es un sensor de distancia, usado para determinar en un rango que por datasheet esta determinado entre 2 a 450 cm, sin embargo, en este caso vamos a usar el rango entre 20 y 80 cm. Comparado con el otro sensor utilizado, este dispositivo cuenta con un rango de valores mas amplio que el sensor infrarrojo.
+![](images/2y.PNG){width="280"}
 
-## Sensor infrarrojo
+## 2.1 Data acquisition
 
-Este es un dispositivo compuesto por un LED infrarojo junto con un detector de posición y un procesador integrado encargado de realizar el cálculo de la distancia, el cual escanea de forma continua los objetos ubicados al frente, proporcionando asi una salida mediante la referencia de tensión analógica.
+the following sensors are used to perform this data acquisition and data projection project.
 
-## 2.1 Data acquisition - Tabla de Excel
-
-```{r Item 1, message=FALSE}
-#library(readxl)
-#library(knitr)
-#library(kableExtra)
-
-# Leer el archivo Excel
-#datos <- read_excel("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/150.xlsx")
-
-# Mostrar la tabla como HTML
-#tabla <- kable(datos, format = "html", row.names = FALSE) %>%
-#  kable_classic("striped", full_width = FALSE)
-#tabla
+```{r adquisiscion, message=FALSE}
+library(dplyr)
 library(tidyverse)
 library(readxl)
-X150 <- read_excel("R/150.csv")
-View(X150)
-
+library(knitr) 
+library(kableExtra)
+# Leer el archivo Excel
+datos <- read_excel("~/UNIVERSIDAD/8vo Semestre/Area electronica (electiva)/Assignment2/R/1.1.xlsx")
+tabla_adq<-kable(datos)
+tabla_adq <- tabla_adq %>%
+  kable_styling(full_width = FALSE)
+tabla_adq
 ```
 
-## Modelo lineal para Sensor1
+![](images/adq1.PNG)
 
-```{r}
+## Modelo lineal para HC-SR04 (Sensor1)
+
+El sensor de ultrasonido HC-SR04 es una herramienta utilizada para medir distancias en proyectos electrónicos. Sin embargo, es necesario crear un modelo matemático que permita predecir las mediciones del sensor con mayor precisión y eficacia. Una forma de lograr esto es mediante la creación de un modelo lineal que relacione las mediciones del sensor con las variables que afectan su desempeño. como se ve acontinuacion:
+
+```{r,message=FALSE}
 # Modelo lineal para Sensor1
-#model_lin_Sensor_1 <- lm(Sensor_1 ~ Sensor1_cm, data = datos)
+datos <- read_excel("~/UNIVERSIDAD/8vo Semestre/Area electronica (electiva)/Assignment2/R/1.1.xlsx")
+model_lin_Sensor_1 <- lm(Sensor1 ~ Sensor1_cm, data = datos)
 
 # Modelo lineal regularizado para Sensor1
-#library(glmnet)
-#model_reg_Sensor_1 <- glmnet(as.matrix(datos[,c("Sensor1_cm")]), as.matrix(datos[,c("Sensor 1")]), alpha = 1)
+library(glmnet)
+X<-as.matrix(datos[,c("Sensor1_cm","cm")])
+y<-as.matrix(datos[,c("Sensor1")])
+model_reg_Sensor_1 <- glmnet(X, y, alpha = 1)
 
 # Modelo lineal para Sensor2
-#model_lin_Sensor2 <- lm(Sensor2 ~ Sensor2_cm, data = datos)
+model_lin_Sensor2 <- lm(Sensor2 ~ Sensor2_cm, data = datos)
 
 # Modelo lineal regularizado para Sensor2
-#model_reg_Sensor2 <- glmnet(as.matrix(datos[,c("Sensor2_cm")]), as.matrix(datos[,c("Sensor 2")]), alpha = 1)
+model_reg_Sensor2 <- glmnet(as.matrix(datos[,c("Sensor2_cm","cm")]), as.matrix(datos[,c("Sensor2")]), alpha = 1)
+
 ```
 
-##2.1 Cargar datos
+## 2.1 Cargar datos
 
-```{r}
-#knitr::opts_chunk$set(echo = TRUE)
-#library(tidyverse)
-#library(glmnet)
-#library(kableExtra)
-
-#datos <- read.csv("C:/Users/ALEX64MER01/Documents/Proyecto adquisición de datos/1.1.csv")
+```{r,message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(glmnet)
+library(kableExtra)
 
 # Cambiar nombres de columnas
-#colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
+colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
 
 # Visualizar tabla
-#kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic("striped")
-
-
-```
-
-## Cargar datos
-
-```{r}
-
-
+kable(datos[1:10,], caption = "Primeros 10 datos del dataset") %>% kable_classic("striped")
 ```
 
 ## Renombrar las columnas
 
-```{r}
-#colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
+```{r,message=FALSE}
+colnames(datos) <- c("Sensor1", "Sensor1_cm", "cm", "Sensor2", "Sensor2_cm")
 ```
 
-## Entrenar el modelo KNN para el Sensor 1
+## KNN para el Sensor 1
 
-```{r}
-#library(caret)
-#modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
+Para el entrenamiento mediante el metodo e KNN para el sensor HC-SR04, veremos cómo utilizar los datos de entrenamiento para determinar los k vecinos más cercanos a una instancia desconocida y cómo clasificar o predecir el valor de distancia basado en la mayoría de los valores de los vecinos más cercanos.
+
+```{r,message=FALSE}
+library(caret)
+modelo_sensor1 <- train(Sensor1_cm ~ cm, data = datos, method = "knn")
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 1
 
-```{r}
-#nuevo_valor_sensor1 <- 20 # Por ejemplo
-#prediccion_sensor1 <- predict(modelo_sensor1, newdata = data.frame(cm = nuevo_valor_sensor1))
+```{r,message=FALSE}
+nuevo_valor_sensor1 <- 20 # Por ejemplo
+prediccion_sensor1 <- predict(modelo_sensor1, newdata = data.frame(cm = nuevo_valor_sensor1))
+```
 
 # Imprimir la predicción para el Sensor 1
-#print(prediccion_sensor1)
+
+```{r,message=FALSE}
+print(prediccion_sensor1)
 ```
 
 ## Entrenar el modelo KNN para el Sensor 2
 
-```{r}
-#modelo_sensor2 <- train(Sensor2_cm ~ cm, data = datos, method = "knn")
+```{r,message=FALSE}
+modelo_sensor2 <- train(Sensor2_cm ~ cm, data = datos, method = "knn")
+
 ```
 
 ## Hacer una predicción para un nuevo valor de sensor 2
 
-```{r}
-#nuevo_valor_sensor2 <- 30 # Por ejemplo
-#prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_valor_sensor2))
+```{r,message=FALSE}
+nuevo_valor_sensor2 <- 30 # Por ejemplo
+prediccion_sensor2 <- predict(modelo_sensor2, newdata = data.frame(cm = nuevo_valor_sensor2))
+```
 
 # Imprimir la predicción para el Sensor 2
-#print(prediccion_sensor2)
 
+```{r,message=FALSE}
+print(prediccion_sensor2)
 ```
